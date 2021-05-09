@@ -26,39 +26,46 @@ int main(){
 	Ostacolo *o1=new Ostacolo(&figura);
 
 	std::vector<Punto*> fboundary1;
-	fboundary1.push_back(new Punto(0 + deltaX, 66 + deltaY));//R
-	fboundary1.push_back(new Punto(90 + deltaX, 66 + deltaY));//S
-	fboundary1.push_back(new Punto(90 + deltaX, 67 + deltaY));//T
-	fboundary1.push_back(new Punto(0 + deltaX, 67 + deltaY));//U
+	fboundary1.push_back(new Punto(0 + deltaX, 66 + deltaY));
+	fboundary1.push_back(new Punto(90 + deltaX, 66 + deltaY));
+	fboundary1.push_back(new Punto(90 + deltaX, 67 + deltaY));
+	fboundary1.push_back(new Punto(0 + deltaX, 67 + deltaY));
 	Ostacolo *o2=new Ostacolo(&fboundary1);
 
 	std::vector<Punto*> fboundary2;
-	fboundary2.push_back(new Punto(-1 + deltaX, 0 + deltaY));//R
-	fboundary2.push_back(new Punto(-1 + deltaX, 66 + deltaY));//S
-	fboundary2.push_back(new Punto(0 + deltaX, 66 + deltaY));//T
-	fboundary2.push_back(new Punto(0 + deltaX, 0 + deltaY));//U
+	fboundary2.push_back(new Punto(-1 + deltaX, 0 + deltaY));
+	fboundary2.push_back(new Punto(-1 + deltaX, 66 + deltaY));
+	fboundary2.push_back(new Punto(0 + deltaX, 66 + deltaY));
+	fboundary2.push_back(new Punto(0 + deltaX, 0 + deltaY));
 	Ostacolo *o3 = new Ostacolo(&fboundary2);
 
 	std::vector<Punto*> fboundary3;
-	fboundary3.push_back(new Punto(90 + deltaX, 0 + deltaY));//R
-	fboundary3.push_back(new Punto(90 + deltaX, 66 + deltaY));//S
-	fboundary3.push_back(new Punto(91 + deltaX, 66 + deltaY));//T
-	fboundary3.push_back(new Punto(91 + deltaX, 0 + deltaY));//U
+	fboundary3.push_back(new Punto(90 + deltaX, 0 + deltaY));
+	fboundary3.push_back(new Punto(90 + deltaX, 66 + deltaY));
+	fboundary3.push_back(new Punto(91 + deltaX, 66 + deltaY));
+	fboundary3.push_back(new Punto(91 + deltaX, 0 + deltaY));
 	Ostacolo *o4 = new Ostacolo(&fboundary3);
 
 	std::vector<Punto*> fboundary4;
-	fboundary4.push_back(new Punto(0 + deltaX, 0 + deltaY));//R
-	fboundary4.push_back(new Punto(36 + deltaX, 0 + deltaY));//S
-	fboundary4.push_back(new Punto(36 + deltaX, -1 + deltaY));//T
-	fboundary4.push_back(new Punto(-1 + deltaX, -1 + deltaY));//U
+	fboundary4.push_back(new Punto(0 + deltaX, 0 + deltaY));
+	fboundary4.push_back(new Punto(36 + deltaX, 0 + deltaY));
+	fboundary4.push_back(new Punto(36 + deltaX, -1 + deltaY));
+	fboundary4.push_back(new Punto(-1 + deltaX, -1 + deltaY));
 	Ostacolo *o5 = new Ostacolo(&fboundary4);
 
 	std::vector<Punto*> fboundary5;
-	fboundary5.push_back(new Punto(54 + deltaX, 0 + deltaY));//R
-	fboundary5.push_back(new Punto(90 + deltaX, 0 + deltaY));//S
-	fboundary5.push_back(new Punto(90 + deltaX, -1 + deltaY));//T
-	fboundary5.push_back(new Punto(54 + deltaX, -1 + deltaY));//U
+	fboundary5.push_back(new Punto(54 + deltaX, 0 + deltaY));
+	fboundary5.push_back(new Punto(90 + deltaX, 0 + deltaY));
+	fboundary5.push_back(new Punto(90 + deltaX, -1 + deltaY));
+	fboundary5.push_back(new Punto(54 + deltaX, -1 + deltaY));
 	Ostacolo *o6 = new Ostacolo(&fboundary5);
+
+	std::vector<Punto*> fboundary6;
+	fboundary6.push_back(new Punto(44 + deltaX, 0 + deltaY));
+	fboundary6.push_back(new Punto(46 + deltaX, 0 + deltaY));
+	fboundary6.push_back(new Punto(46 + deltaX, -1 + deltaY));
+	fboundary6.push_back(new Punto(44 + deltaX, -1 + deltaY));
+	Ostacolo *o7 = new Ostacolo(&fboundary6);
 
 	std::vector<Ostacolo*> ostacoli;
 	ostacoli.push_back(o);
@@ -68,8 +75,8 @@ int main(){
 	ostacoli.push_back(o4);
 	ostacoli.push_back(o5);
 	ostacoli.push_back(o6);
+	ostacoli.push_back(o7);
 	
-	cout << "Here 1" <<endl;
 	Voronoi *mappa=new Voronoi(200,200,ostacoli);
 	std::vector<Punto*> *voronoi= mappa->getPuntiVoronoi();
 	ostacoli= *mappa->getOstacoli();
@@ -79,7 +86,6 @@ int main(){
 	Punto *arrivo= new Punto(39 + deltaX, 0 + deltaY);
 	std::vector<Punto> percorso=mappa->getPercorso(*partenza,*arrivo);
 	
-	cout << "Here" <<endl;
 	std::ofstream fostacoli("ostacoli.txt");
 	for(int i=0;i<ostacoli.size();i++){
 		for(int j=0;j<ostacoli.at(i)->getIngombro()->size();j++){
