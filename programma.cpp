@@ -9,13 +9,17 @@ using namespace std;
 int main(){
 	int deltaX = 1;
 	int deltaY = 1;
+
+	#pragma region first stack
 	std::vector<Punto*> quadrato;
 	quadrato.push_back(new Punto(10 + deltaX, 10 + deltaY));
 	quadrato.push_back(new Punto(10 + deltaX, 28 + deltaY));
 	quadrato.push_back(new Punto(80 + deltaX, 28 + deltaY));
 	quadrato.push_back(new Punto(80 + deltaX, 10 + deltaY));
 	Ostacolo *o=new Ostacolo(&quadrato);		
+	#pragma endregion
 	
+	#pragma region second stack
 	std::vector<Punto*> figura;
 	figura.push_back(new Punto(10 + deltaX, 38 + deltaY));//R
 	figura.push_back(new Punto(10 + deltaX, 50 + deltaY));//S
@@ -24,6 +28,7 @@ int main(){
 	figura.push_back(new Punto(80 + deltaX, 56 + deltaY));//V
 	figura.push_back(new Punto(80 + deltaX, 38 + deltaY));//W
 	Ostacolo *o1=new Ostacolo(&figura);
+	#pragma endregion
 
 	//left wall near gate 1
 	std::vector<Punto*> fboundary11;
