@@ -11,23 +11,23 @@ int main(){
 	int deltaY = 1;
 
 	#pragma region first stack
-	std::vector<Point*> quadrato;
-	quadrato.push_back(new Point(10 + deltaX, 10 + deltaY));
-	quadrato.push_back(new Point(10 + deltaX, 28 + deltaY));
-	quadrato.push_back(new Point(80 + deltaX, 28 + deltaY));
-	quadrato.push_back(new Point(80 + deltaX, 10 + deltaY));
-	Polygon *o=new Polygon(&quadrato);		
+	std::vector<Point*> rectangle;
+	rectangle.push_back(new Point(10 + deltaX, 10 + deltaY));
+	rectangle.push_back(new Point(10 + deltaX, 28 + deltaY));
+	rectangle.push_back(new Point(80 + deltaX, 28 + deltaY));
+	rectangle.push_back(new Point(80 + deltaX, 10 + deltaY));
+	Polygon *o = new Polygon(&rectangle);		
 	#pragma endregion
 	
 	#pragma region second stack
-	std::vector<Point*> figura;
-	figura.push_back(new Point(10 + deltaX, 38 + deltaY));//R
-	figura.push_back(new Point(10 + deltaX, 50 + deltaY));//S
-	figura.push_back(new Point(12 + deltaX, 50 + deltaY));//T
-	figura.push_back(new Point(12 + deltaX, 56 + deltaY));//U
-	figura.push_back(new Point(80 + deltaX, 56 + deltaY));//V
-	figura.push_back(new Point(80 + deltaX, 38 + deltaY));//W
-	Polygon *o1=new Polygon(&figura);
+	std::vector<Point*> figure;
+	figure.push_back(new Point(10 + deltaX, 38 + deltaY));//R
+	figure.push_back(new Point(10 + deltaX, 50 + deltaY));//S
+	figure.push_back(new Point(12 + deltaX, 50 + deltaY));//T
+	figure.push_back(new Point(12 + deltaX, 56 + deltaY));//U
+	figure.push_back(new Point(80 + deltaX, 56 + deltaY));//V
+	figure.push_back(new Point(80 + deltaX, 38 + deltaY));//W
+	Polygon *o1 = new Polygon(&figure);
 	#pragma endregion
 
 	#pragma region gate 1
