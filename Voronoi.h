@@ -95,7 +95,7 @@ void Voronoi::CreaVoronoi(){
 			//std::cout<<tmpX<<" ";
 			Punto *tmp_punto= new Punto(tmpX,tmpY);
 			
-			std::vector<double> distanze;
+			std::vector<double> distance;
 			for(int i=0;i<ostacoli.size();i++){
 				double minDist=10000;
 				for(int j=0;j<ostacoli.at(i)->getSurface()->size();j++){
@@ -104,20 +104,20 @@ void Voronoi::CreaVoronoi(){
 					if(tmp_dist<minDist) 
 						minDist=tmp_dist;
 				}
-				distanze.push_back(minDist);
+				distance.push_back(minDist);
 			}
 			
 			//Mi servono le distanze dagli ostacoli + vicini
-			std::sort(distanze.begin(),distanze.begin()+distanze.size());
+			std::sort(distance.begin(),distance.begin()+distance.size());
 			
-			double min1= distanze.at(0);
-			double min2= distanze.at(1);	
+			double min1= distance.at(0);
+			double min2= distance.at(1);	
 			
 			if(fabs(min2-min1)<=dist_tolleranza){
 				punti_voronoi.push_back(tmp_punto);
 				
 				if(ostacoli.size()>2){
-					double min3= distanze.at(2);
+					double min3= distance.at(2);
 					if(fabs(min2-min3)<=dist_tolleranza && fabs(min3-min1)<=dist_tolleranza) incroci.push_back(tmp_punto);	
 				}
 				
