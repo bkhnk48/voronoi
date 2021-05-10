@@ -132,7 +132,7 @@ int main(){
 	ostacoli.push_back(o33);
 	#pragma endregion
 	
-	Voronoi *mappa=new Voronoi(200,200,ostacoli);
+	Voronoi *mappa=new Voronoi(200, 200, ostacoli);
 	std::vector<Point*> *voronoi= mappa->getPointVoronoi();
 	ostacoli = *mappa->getPolygon();
 	std::vector<Point*> *incroci= mappa->getIncroci();
@@ -151,13 +151,13 @@ int main(){
 	fostacoli.close();
 	
 	std::ofstream fvoronoi("voronoi.txt");
-	for(int i=0;i<voronoi->size();i++){
+	for(int i = 0;i < voronoi->size(); i++){
 		fvoronoi<< voronoi->at(i)->getX() << " " << voronoi->at(i)->getY() << std::endl;		
 	}
 	fvoronoi.close();
 	
 	std::ofstream fpercorso("percorso.txt");
-	for(int i=0;i<percorso.size();i++){
+	for(int i = 0; i < percorso.size(); i++){
 		fpercorso<< percorso.at(i).getX() << " " << percorso.at(i).getY() << std::endl;		
 	}
 	fpercorso.close();
