@@ -4,7 +4,7 @@
 #include <math.h>
 #include <algorithm>
 #include <iostream>
-#include "Ostacolo.h"
+#include "Polygon.h"
 
 const double unit= 1;
 const double raggio_ricerca= 5*unit*sqrt(2); //raggio ricerca vicini
@@ -17,7 +17,7 @@ class Voronoi{
 	private:
 		double lunghezza;
 		double larghezza;
-		std::vector<Ostacolo*> ostacoli;
+		std::vector<Polygon*> polygon;
 		std::vector<Point*> punti_voronoi;
 		std::vector<Point*> incroci;
 		void CreaVoronoi();
@@ -25,8 +25,8 @@ class Voronoi{
 		std::vector<Point*> getPercorsoVoronoi2(Point partenza,Point arrivo);
 				
 	public:
-		Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostacoli);
-		std::vector<Ostacolo*> *getOstacoli();
+		Voronoi(double larghezza,double lunghezza,std::vector<Polygon*> ostacoli);
+		std::vector<Polygon*> *getPolygon();
 		std::vector<Point*> *getPuntiVoronoi();
 		std::vector<Point> getPercorso(Point partenza,Point arrivo);
 		Point getPointDistanzaMinima(Point p);	
@@ -34,8 +34,8 @@ class Voronoi{
 		
 };
 
-Voronoi::Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostacoli){
-	this->ostacoli=ostacoli;
+Voronoi::Voronoi(double larghezza,double lunghezza,std::vector<Polygon*> ostacoli){
+	this->polygon = ostacoli;
 	
 	//Usare questo se non si vogliono i collegamenti degli spiegoli dell'ambiente
 	std::vector<Point*> ambiente;
@@ -43,7 +43,7 @@ Voronoi::Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostaco
 	ambiente.push_back(new Point(larghezza-1,0));
 	ambiente.push_back(new Point(larghezza-1,lunghezza-1));
 	ambiente.push_back(new Point(0,lunghezza-1));
-	this->ostacoli.push_back(new Ostacolo(&ambiente));
+	this->polygon.push_back(new Polygon(&ambiente));
 	
 	//usare questo se si vogliono gli spigoli dell'ambiente
 	/*std::vector<Point*> ambiente;
@@ -71,8 +71,8 @@ Voronoi::Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostaco
 	std::cout<<"Voronoi map created"<<std::endl;
 }
 
-std::vector<Ostacolo*> *Voronoi::getOstacoli(){
-	return &ostacoli;
+std::vector<Polygon*> *Voronoi::getPolygon(){
+	return &polygon;
 }
 
 std::vector<Point*> *Voronoi::getPuntiVoronoi(){
@@ -96,10 +96,10 @@ void Voronoi::CreaVoronoi(){
 			Point *tmp_Point= new Point(tmpX,tmpY);
 			
 			std::vector<double> distance;
-			for(int i=0;i<ostacoli.size();i++){
-				double minDist=10000;
-				for(int j=0;j<ostacoli.at(i)->getEdges()->size();j++){
-					double tmp_dist= Ostacolo::Distance(*tmp_Point,*ostacoli.at(i)->getEdges()->at(j));
+			for(int i = 0;i < polygon.size();i++){
+				double minDist = 10000;
+				for(int j=0;j < polygon.at(i)->getEdges()->size();j++){
+					double tmp_dist= Polygon::Distance(*tmp_Point,*polygon.at(i)->getEdges()->at(j));
 					//double tmp_dist= fabs(tmp_Point->getX()-ostacoli.at(i)->getIngombro()->at(j)->getX())+fabs(tmp_Point->getY()-ostacoli.at(i)->getIngombro()->at(j)->getY());
 					if(tmp_dist<minDist) 
 						minDist=tmp_dist;
@@ -116,7 +116,7 @@ void Voronoi::CreaVoronoi(){
 			if(fabs(min2-min1)<=dist_tolleranza){
 				punti_voronoi.push_back(tmp_Point);
 				
-				if(ostacoli.size()>2){
+				if(polygon.size()>2){
 					double min3= distance.at(2);
 					if(fabs(min2-min3)<=dist_tolleranza && fabs(min3-min1)<=dist_tolleranza) incroci.push_back(tmp_Point);	
 				}
@@ -168,7 +168,7 @@ std::vector<Point> Voronoi::getPercorso(Point partenza,Point arrivo){
 		Point *tmp=perc_voro.at(0);
 		percorso.push_back(*tmp);
 		for(int i=1;i<perc_voro.size();i++){
-			if(Ostacolo::Distance(*tmp,*perc_voro.at(i))>=distanza){
+			if(Polygon::Distance(*tmp,*perc_voro.at(i))>=distanza){
 				percorso.push_back(*perc_voro.at(i));
 				tmp=perc_voro.at(i);
 			}
@@ -226,7 +226,7 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi(Point partenza,Point arrivo,std:
 				}
 			}
 			
-			if(dist<Ostacolo::Distance(*tmp,arrivo)) //controllo per evitare l'allontamento
+			if(dist<Polygon::Distance(*tmp,arrivo)) //controllo per evitare l'allontamento
 				tmp=temp;
 				else goto alternativo;
 				
@@ -244,7 +244,7 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi(Point partenza,Point arrivo,std:
 			double dist = 10000;
 			for(int i = 0; i < incroci.size(); i++){
 				Point *inc = incroci.at(i);
-				double val = Ostacolo::Distance(*inc,arrivo);				
+				double val = Polygon::Distance(*inc,arrivo);				
 				bool presente = false;
 				if(incroci_s != NULL)
 				for(int j = 0;j < incroci_s->size(); j++){
@@ -296,8 +296,8 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi2(Point partenza,Point arrivo){
 	double dist2=10000;
 	for(int i=0;i<incroci.size();i++){
 		Point *inc= incroci.at(i);
-		double val= Ostacolo::Distance(*inc,partenza);
-		double val2= Ostacolo::Distance(*inc,arrivo);		
+		double val= Polygon::Distance(*inc,partenza);
+		double val2= Polygon::Distance(*inc,arrivo);		
 		if(val<dist1){
 			dist1=val;
 			incrocio_partenza=inc;
@@ -312,8 +312,8 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi2(Point partenza,Point arrivo){
 	Point *incrocio_obiettivo;
 	for(int i = 0;i < incroci.size(); i++){
 		Point *inc = incroci.at(i);
-		double val = Ostacolo::Distance(*inc,*incrocio_partenza);
-		double val2 = Ostacolo::Distance(*inc,*incrocio_arrivo);
+		double val = Polygon::Distance(*inc,*incrocio_partenza);
+		double val2 = Polygon::Distance(*inc,*incrocio_arrivo);
 		if(fabs(val-val2) < dist1){
 			incrocio_obiettivo = inc;
 			dist1 = fabs(val-val2);
