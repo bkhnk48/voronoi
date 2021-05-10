@@ -7,10 +7,10 @@
 class Ostacolo{
 	private:
 		std::vector<Punto*> vertici;
-		std::vector<Punto*> ingombro;
+		std::vector<Punto*> surface;
 	public:
 		Ostacolo(std::vector<Punto*> *vert);
-		std::vector<Punto*> *getIngombro();
+		std::vector<Punto*> *getSurface();
 		static double Distanza(Punto p1,Punto p2);		
 };
 
@@ -33,7 +33,7 @@ Ostacolo::Ostacolo(std::vector<Punto*> *vert){
 			
 			do{
 				
-				ingombro.push_back(tmp);
+				surface.push_back(tmp);
 				
 				if(p1x==p2x && p1y!=p2y){ //retta verticale
                     if(p1y<p2y)
@@ -59,13 +59,13 @@ Ostacolo::Ostacolo(std::vector<Punto*> *vert){
 			}while(!(tmp->getX()==p2->getX() && tmp->getY()==p2->getY()));
 			
 		}
-	}else ingombro.push_back(vertici.at(0));
+	}else surface.push_back(vertici.at(0));
 	
 }
 
 
-std::vector<Punto*> *Ostacolo::getIngombro(){
-	return &ingombro;
+std::vector<Punto*> *Ostacolo::getSurface(){
+	return &surface;
 }
 
 double Ostacolo::Distanza(Punto p1,Punto p2){
