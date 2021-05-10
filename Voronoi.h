@@ -18,7 +18,7 @@ class Voronoi{
 		double lunghezza;
 		double larghezza;
 		std::vector<Polygon*> polygon;
-		std::vector<Point*> punti_voronoi;
+		std::vector<Point*> point_voronoi;
 		std::vector<Point*> incroci;
 		void CreaVoronoi();
 		std::vector<Point*> getPercorsoVoronoi(Point partenza,Point arrivo,std::vector<Point*> *incroci_s);
@@ -27,7 +27,7 @@ class Voronoi{
 	public:
 		Voronoi(double larghezza,double lunghezza,std::vector<Polygon*> ostacoli);
 		std::vector<Polygon*> *getPolygon();
-		std::vector<Point*> *getPuntiVoronoi();
+		std::vector<Point*> *getPointVoronoi();
 		std::vector<Point> getPercorso(Point partenza,Point arrivo);
 		Point getPointDistanzaMinima(Point p);	
 		std::vector<Point*> *getIncroci();
@@ -75,8 +75,8 @@ std::vector<Polygon*> *Voronoi::getPolygon(){
 	return &polygon;
 }
 
-std::vector<Point*> *Voronoi::getPuntiVoronoi(){
-	return &punti_voronoi;
+std::vector<Point*> *Voronoi::getPointVoronoi(){
+	return &point_voronoi;
 }
 
 std::vector<Point*> *Voronoi::getIncroci(){
@@ -114,7 +114,7 @@ void Voronoi::CreaVoronoi(){
 			double min2= distance.at(1);	
 			
 			if(fabs(min2-min1)<=dist_tolleranza){
-				punti_voronoi.push_back(tmp_Point);
+				point_voronoi.push_back(tmp_Point);
 				
 				if(polygon.size()>2){
 					double min3= distance.at(2);
@@ -140,8 +140,8 @@ std::vector<Point> Voronoi::getPercorso(Point partenza,Point arrivo){
 	Point *minimo_arrivo=NULL;
 	Point *minimo=NULL;
 	
-	for(int i=0;i<punti_voronoi.size();i++){
-		Point *p= punti_voronoi.at(i);
+	for(int i=0;i<point_voronoi.size();i++){
+		Point *p= point_voronoi.at(i);
 		double val= sqrt((partenza.getX()-p->getX())*(partenza.getX()-p->getX()) + (partenza.getY()-p->getY())*(partenza.getY()-p->getY()));
         double val2= sqrt((arrivo.getX()-p->getX())*(arrivo.getX()-p->getX()) + (arrivo.getY()-p->getY())*(arrivo.getY()-p->getY()));
 		if(val<dist){
@@ -200,8 +200,8 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi(Point partenza,Point arrivo,std:
 	do{
 		std::vector<Point*> vicini;
 		
-		for(int i=0;i<punti_voronoi.size();i++){
-			Point *p=punti_voronoi.at(i);
+		for(int i = 0;i < point_voronoi.size();i++){
+			Point *p = point_voronoi.at(i);
 			double val= sqrt((tmp->getX()-p->getX())*(tmp->getX()-p->getX()) + (tmp->getY()-p->getY())*(tmp->getY()-p->getY()));
 			
 			bool passato=false;
@@ -308,7 +308,7 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi2(Point partenza,Point arrivo){
 		}		
 	}
 	
-	dist1=10000;
+	dist1 = 10000;
 	Point *incrocio_obiettivo;
 	for(int i = 0;i < incroci.size(); i++){
 		Point *inc = incroci.at(i);
