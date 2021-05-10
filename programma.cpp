@@ -56,28 +56,28 @@ int main(){
 	
 	#pragma region gate 4
 	//left wall near gate 4
-	std::vector<Punto*> fboundary21;
-	fboundary21.push_back(new Punto(-1 + deltaX, 0 + deltaY));
-	fboundary21.push_back(new Punto(-1 + deltaX, 24 + deltaY));
-	fboundary21.push_back(new Punto(0 + deltaX, 24 + deltaY));
-	fboundary21.push_back(new Punto(0 + deltaX, 0 + deltaY));
-	Ostacolo *o41 = new Ostacolo(&fboundary21);
+	std::vector<Punto*> fboundary41;
+	fboundary41.push_back(new Punto(-1 + deltaX, 0 + deltaY));
+	fboundary41.push_back(new Punto(-1 + deltaX, 24 + deltaY));
+	fboundary41.push_back(new Punto(0 + deltaX, 24 + deltaY));
+	fboundary41.push_back(new Punto(0 + deltaX, 0 + deltaY));
+	Ostacolo *o41 = new Ostacolo(&fboundary41);
 
 	//right wall near gate 4
-	std::vector<Punto*> fboundary23;
-	fboundary23.push_back(new Punto(-1 + deltaX, 42 + deltaY));
-	fboundary23.push_back(new Punto(-1 + deltaX, 66 + deltaY));
-	fboundary23.push_back(new Punto(0 + deltaX, 66 + deltaY));
-	fboundary23.push_back(new Punto(0 + deltaX, 42 + deltaY));
-	Ostacolo *o43 = new Ostacolo(&fboundary23);
+	std::vector<Punto*> fboundary43;
+	fboundary43.push_back(new Punto(-1 + deltaX, 42 + deltaY));
+	fboundary43.push_back(new Punto(-1 + deltaX, 66 + deltaY));
+	fboundary43.push_back(new Punto(0 + deltaX, 66 + deltaY));
+	fboundary43.push_back(new Punto(0 + deltaX, 42 + deltaY));
+	Ostacolo *o43 = new Ostacolo(&fboundary43);
 
 	//median strip near gate 4
-	std::vector<Punto*> fboundary22;
-	fboundary22.push_back(new Punto(-1 + deltaX, 32 + deltaY));
-	fboundary22.push_back(new Punto(-1 + deltaX, 34 + deltaY));
-	fboundary22.push_back(new Punto(0 + deltaX, 34 + deltaY));
-	fboundary22.push_back(new Punto(0 + deltaX, 32 + deltaY));
-	Ostacolo *o42 = new Ostacolo(&fboundary22);
+	std::vector<Punto*> fboundary42;
+	fboundary42.push_back(new Punto(-1 + deltaX, 32 + deltaY));
+	fboundary42.push_back(new Punto(-1 + deltaX, 34 + deltaY));
+	fboundary42.push_back(new Punto(0 + deltaX, 34 + deltaY));
+	fboundary42.push_back(new Punto(0 + deltaX, 32 + deltaY));
+	Ostacolo *o42 = new Ostacolo(&fboundary42);
 	#pragma endregion
 
 	std::vector<Punto*> fboundary3;
@@ -89,28 +89,28 @@ int main(){
 
 	#pragma region gate 3
 	//left wall near gate 3
-	std::vector<Punto*> fboundary4;
-	fboundary4.push_back(new Punto(0 + deltaX, 0 + deltaY));
-	fboundary4.push_back(new Punto(36 + deltaX, 0 + deltaY));
-	fboundary4.push_back(new Punto(36 + deltaX, -1 + deltaY));
-	fboundary4.push_back(new Punto(-1 + deltaX, -1 + deltaY));
-	Ostacolo *o5 = new Ostacolo(&fboundary4);
+	std::vector<Punto*> fboundary31;
+	fboundary31.push_back(new Punto(0 + deltaX, 0 + deltaY));
+	fboundary31.push_back(new Punto(36 + deltaX, 0 + deltaY));
+	fboundary31.push_back(new Punto(36 + deltaX, -1 + deltaY));
+	fboundary31.push_back(new Punto(-1 + deltaX, -1 + deltaY));
+	Ostacolo *o31 = new Ostacolo(&fboundary31);
 
 	//right wall near gate 3
-	std::vector<Punto*> fboundary5;
-	fboundary5.push_back(new Punto(54 + deltaX, 0 + deltaY));
-	fboundary5.push_back(new Punto(90 + deltaX, 0 + deltaY));
-	fboundary5.push_back(new Punto(90 + deltaX, -1 + deltaY));
-	fboundary5.push_back(new Punto(54 + deltaX, -1 + deltaY));
-	Ostacolo *o6 = new Ostacolo(&fboundary5);
+	std::vector<Punto*> fboundary33;
+	fboundary33.push_back(new Punto(54 + deltaX, 0 + deltaY));
+	fboundary33.push_back(new Punto(90 + deltaX, 0 + deltaY));
+	fboundary33.push_back(new Punto(90 + deltaX, -1 + deltaY));
+	fboundary33.push_back(new Punto(54 + deltaX, -1 + deltaY));
+	Ostacolo *o33 = new Ostacolo(&fboundary33);
 
 	//Median strip at gate 3
-	std::vector<Punto*> fboundary6;
-	fboundary6.push_back(new Punto(44 + deltaX, 0 + deltaY));
-	fboundary6.push_back(new Punto(46 + deltaX, 0 + deltaY));
-	fboundary6.push_back(new Punto(46 + deltaX, -1 + deltaY));
-	fboundary6.push_back(new Punto(44 + deltaX, -1 + deltaY));
-	Ostacolo *o7 = new Ostacolo(&fboundary6);
+	std::vector<Punto*> fboundary32;
+	fboundary32.push_back(new Punto(44 + deltaX, 0 + deltaY));
+	fboundary32.push_back(new Punto(46 + deltaX, 0 + deltaY));
+	fboundary32.push_back(new Punto(46 + deltaX, -1 + deltaY));
+	fboundary32.push_back(new Punto(44 + deltaX, -1 + deltaY));
+	Ostacolo *o32 = new Ostacolo(&fboundary32);
 	#pragma endregion
 
 	std::vector<Ostacolo*> ostacoli;
@@ -126,9 +126,9 @@ int main(){
 	ostacoli.push_back(o43);
 
 	ostacoli.push_back(o4);
-	ostacoli.push_back(o5);
-	ostacoli.push_back(o6);
-	ostacoli.push_back(o7);
+	ostacoli.push_back(o31);
+	ostacoli.push_back(o32);
+	ostacoli.push_back(o33);
 	
 	Voronoi *mappa=new Voronoi(200,200,ostacoli);
 	std::vector<Punto*> *voronoi= mappa->getPuntiVoronoi();
