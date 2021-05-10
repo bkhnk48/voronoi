@@ -18,19 +18,19 @@ class Voronoi{
 		double lunghezza;
 		double larghezza;
 		std::vector<Ostacolo*> ostacoli;
-		std::vector<Punto*> punti_voronoi;
-		std::vector<Punto*> incroci;
+		std::vector<Point*> punti_voronoi;
+		std::vector<Point*> incroci;
 		void CreaVoronoi();
-		std::vector<Punto*> getPercorsoVoronoi(Punto partenza,Punto arrivo,std::vector<Punto*> *incroci_s);
-		std::vector<Punto*> getPercorsoVoronoi2(Punto partenza,Punto arrivo);
+		std::vector<Point*> getPercorsoVoronoi(Point partenza,Point arrivo,std::vector<Point*> *incroci_s);
+		std::vector<Point*> getPercorsoVoronoi2(Point partenza,Point arrivo);
 				
 	public:
 		Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostacoli);
 		std::vector<Ostacolo*> *getOstacoli();
-		std::vector<Punto*> *getPuntiVoronoi();
-		std::vector<Punto> getPercorso(Punto partenza,Punto arrivo);
-		Punto getPuntoDistanzaMinima(Punto p);	
-		std::vector<Punto*> *getIncroci();
+		std::vector<Point*> *getPuntiVoronoi();
+		std::vector<Point> getPercorso(Point partenza,Point arrivo);
+		Point getPointDistanzaMinima(Point p);	
+		std::vector<Point*> *getIncroci();
 		
 };
 
@@ -38,29 +38,29 @@ Voronoi::Voronoi(double larghezza,double lunghezza,std::vector<Ostacolo*> ostaco
 	this->ostacoli=ostacoli;
 	
 	//Usare questo se non si vogliono i collegamenti degli spiegoli dell'ambiente
-	std::vector<Punto*> ambiente;
-	ambiente.push_back(new Punto(0,0));
-	ambiente.push_back(new Punto(larghezza-1,0));
-	ambiente.push_back(new Punto(larghezza-1,lunghezza-1));
-	ambiente.push_back(new Punto(0,lunghezza-1));
+	std::vector<Point*> ambiente;
+	ambiente.push_back(new Point(0,0));
+	ambiente.push_back(new Point(larghezza-1,0));
+	ambiente.push_back(new Point(larghezza-1,lunghezza-1));
+	ambiente.push_back(new Point(0,lunghezza-1));
 	this->ostacoli.push_back(new Ostacolo(&ambiente));
 	
 	//usare questo se si vogliono gli spigoli dell'ambiente
-	/*std::vector<Punto*> ambiente;
-	ambiente.push_back(new Punto(0,0));
-	ambiente.push_back(new Punto(larghezza-1,0));
+	/*std::vector<Point*> ambiente;
+	ambiente.push_back(new Point(0,0));
+	ambiente.push_back(new Point(larghezza-1,0));
 	this->ostacoli.push_back(new Ostacolo(&ambiente));
-	std::vector<Punto*> ambiente2;
-	ambiente2.push_back(new Punto(larghezza-1,1));
-	ambiente2.push_back(new Punto(larghezza-1,lunghezza-1));
+	std::vector<Point*> ambiente2;
+	ambiente2.push_back(new Point(larghezza-1,1));
+	ambiente2.push_back(new Point(larghezza-1,lunghezza-1));
 	this->ostacoli.push_back(new Ostacolo(&ambiente2));
-	std::vector<Punto*> ambiente3;
-	ambiente3.push_back(new Punto(larghezza-2,lunghezza-1));
-	ambiente3.push_back(new Punto(0,lunghezza-1));
+	std::vector<Point*> ambiente3;
+	ambiente3.push_back(new Point(larghezza-2,lunghezza-1));
+	ambiente3.push_back(new Point(0,lunghezza-1));
 	this->ostacoli.push_back(new Ostacolo(&ambiente3));
-	std::vector<Punto*> ambiente4;
-	ambiente4.push_back(new Punto(0,lunghezza-2));
-	ambiente4.push_back(new Punto(0,1));
+	std::vector<Point*> ambiente4;
+	ambiente4.push_back(new Point(0,lunghezza-2));
+	ambiente4.push_back(new Point(0,1));
 	this->ostacoli.push_back(new Ostacolo(&ambiente4));*/
 	
 	this->lunghezza=lunghezza;
@@ -75,11 +75,11 @@ std::vector<Ostacolo*> *Voronoi::getOstacoli(){
 	return &ostacoli;
 }
 
-std::vector<Punto*> *Voronoi::getPuntiVoronoi(){
+std::vector<Point*> *Voronoi::getPuntiVoronoi(){
 	return &punti_voronoi;
 }
 
-std::vector<Punto*> *Voronoi::getIncroci(){
+std::vector<Point*> *Voronoi::getIncroci(){
 	return &incroci;
 }
 
@@ -93,14 +93,14 @@ void Voronoi::CreaVoronoi(){
 		for(double tmpX=unit;tmpX<larghezza-unit;tmpX+=unit){
 		
 			//std::cout<<tmpX<<" ";
-			Punto *tmp_punto= new Punto(tmpX,tmpY);
+			Point *tmp_Point= new Point(tmpX,tmpY);
 			
 			std::vector<double> distance;
 			for(int i=0;i<ostacoli.size();i++){
 				double minDist=10000;
 				for(int j=0;j<ostacoli.at(i)->getEdges()->size();j++){
-					double tmp_dist= Ostacolo::Distanza(*tmp_punto,*ostacoli.at(i)->getEdges()->at(j));
-					//double tmp_dist= fabs(tmp_punto->getX()-ostacoli.at(i)->getIngombro()->at(j)->getX())+fabs(tmp_punto->getY()-ostacoli.at(i)->getIngombro()->at(j)->getY());
+					double tmp_dist= Ostacolo::Distance(*tmp_Point,*ostacoli.at(i)->getEdges()->at(j));
+					//double tmp_dist= fabs(tmp_Point->getX()-ostacoli.at(i)->getIngombro()->at(j)->getX())+fabs(tmp_Point->getY()-ostacoli.at(i)->getIngombro()->at(j)->getY());
 					if(tmp_dist<minDist) 
 						minDist=tmp_dist;
 				}
@@ -114,14 +114,14 @@ void Voronoi::CreaVoronoi(){
 			double min2= distance.at(1);	
 			
 			if(fabs(min2-min1)<=dist_tolleranza){
-				punti_voronoi.push_back(tmp_punto);
+				punti_voronoi.push_back(tmp_Point);
 				
 				if(ostacoli.size()>2){
 					double min3= distance.at(2);
-					if(fabs(min2-min3)<=dist_tolleranza && fabs(min3-min1)<=dist_tolleranza) incroci.push_back(tmp_punto);	
+					if(fabs(min2-min3)<=dist_tolleranza && fabs(min3-min1)<=dist_tolleranza) incroci.push_back(tmp_Point);	
 				}
 				
-			}else delete tmp_punto;
+			}else delete tmp_Point;
 		
 			
 		}
@@ -130,18 +130,18 @@ void Voronoi::CreaVoronoi(){
 
 
 
-std::vector<Punto> Voronoi::getPercorso(Punto partenza,Punto arrivo){
+std::vector<Point> Voronoi::getPercorso(Point partenza,Point arrivo){
 	std::cout<<"I calculate the route"<<std::endl;
 	
-	std::vector<Punto> percorso;
+	std::vector<Point> percorso;
 	percorso.push_back(partenza); //solo temporaneo
 	double dist=10000;
 	double dist2=10000;
-	Punto *minimo_arrivo=NULL;
-	Punto *minimo=NULL;
+	Point *minimo_arrivo=NULL;
+	Point *minimo=NULL;
 	
 	for(int i=0;i<punti_voronoi.size();i++){
-		Punto *p= punti_voronoi.at(i);
+		Point *p= punti_voronoi.at(i);
 		double val= sqrt((partenza.getX()-p->getX())*(partenza.getX()-p->getX()) + (partenza.getY()-p->getY())*(partenza.getY()-p->getY()));
         double val2= sqrt((arrivo.getX()-p->getX())*(arrivo.getX()-p->getX()) + (arrivo.getY()-p->getY())*(arrivo.getY()-p->getY()));
 		if(val<dist){
@@ -161,20 +161,20 @@ std::vector<Punto> Voronoi::getPercorso(Punto partenza,Punto arrivo){
 	
 	if(minimo->getX()== arrivo.getX() && minimo->getY()==arrivo.getY()) return percorso;
 	
-	std::vector<Punto*> perc_voro= getPercorsoVoronoi(*minimo,*minimo_arrivo,NULL);
-	//std::vector<Punto*> perc_voro= getPercorsoVoronoi2(*minimo,*minimo_arrivo);
+	std::vector<Point*> perc_voro= getPercorsoVoronoi(*minimo,*minimo_arrivo,NULL);
+	//std::vector<Point*> perc_voro= getPercorsoVoronoi2(*minimo,*minimo_arrivo);
 	
 	if(perc_voro.size()>0){
-		Punto *tmp=perc_voro.at(0);
+		Point *tmp=perc_voro.at(0);
 		percorso.push_back(*tmp);
 		for(int i=1;i<perc_voro.size();i++){
-			if(Ostacolo::Distanza(*tmp,*perc_voro.at(i))>=distanza){
+			if(Ostacolo::Distance(*tmp,*perc_voro.at(i))>=distanza){
 				percorso.push_back(*perc_voro.at(i));
 				tmp=perc_voro.at(i);
 			}
 		}
 		
-		std::vector<Punto> temp;
+		std::vector<Point> temp;
 		for(int i=0;i<percorso.size();i+=scarto){
 			temp.push_back(percorso.at(i));
 		}
@@ -190,18 +190,18 @@ std::vector<Punto> Voronoi::getPercorso(Punto partenza,Punto arrivo){
 
 
 
-std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std::vector<Punto*> *incroci_s){
-	std::vector<Punto*> percorso;
-	std::vector<Punto*> punti_passati;
+std::vector<Point*> Voronoi::getPercorsoVoronoi(Point partenza,Point arrivo,std::vector<Point*> *incroci_s){
+	std::vector<Point*> percorso;
+	std::vector<Point*> punti_passati;
 	punti_passati.push_back(&partenza);
 	
-	Punto *tmp=&partenza;
+	Point *tmp=&partenza;
 	
 	do{
-		std::vector<Punto*> vicini;
+		std::vector<Point*> vicini;
 		
 		for(int i=0;i<punti_voronoi.size();i++){
-			Punto *p=punti_voronoi.at(i);
+			Point *p=punti_voronoi.at(i);
 			double val= sqrt((tmp->getX()-p->getX())*(tmp->getX()-p->getX()) + (tmp->getY()-p->getY())*(tmp->getY()-p->getY()));
 			
 			bool passato=false;
@@ -216,9 +216,9 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std:
 		
 		if(vicini.size()>0){
 			double dist=10000;
-			Punto *temp;
+			Point *temp;
 			for(int i=0;i<vicini.size();i++){
-				Punto *vicino= vicini.at(i);
+				Point *vicino= vicini.at(i);
 				double val= sqrt((vicino->getX()-arrivo.getX())*(vicino->getX()-arrivo.getX()) + (vicino->getY()-arrivo.getY())*(vicino->getY()-arrivo.getY()));
 				if(val<dist){
 					temp=vicino;
@@ -226,7 +226,7 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std:
 				}
 			}
 			
-			if(dist<Ostacolo::Distanza(*tmp,arrivo)) //controllo per evitare l'allontamento
+			if(dist<Ostacolo::Distance(*tmp,arrivo)) //controllo per evitare l'allontamento
 				tmp=temp;
 				else goto alternativo;
 				
@@ -239,23 +239,23 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std:
 		
 			percorso.clear();
 			punti_passati.clear();
-			Punto *incrocio_vicino=NULL;
+			Point *incrocio_vicino=NULL;
 			
-			double dist=10000;
-			for(int i=0;i<incroci.size();i++){
-				Punto *inc= incroci.at(i);
-				double val=Ostacolo::Distanza(*inc,arrivo);				
-				bool presente=false;
-				if(incroci_s!=NULL)
-				for(int j=0;j<incroci_s->size();j++){
-					if(inc==incroci_s->at(j)){
-						presente=true;
+			double dist = 10000;
+			for(int i = 0; i < incroci.size(); i++){
+				Point *inc = incroci.at(i);
+				double val = Ostacolo::Distance(*inc,arrivo);				
+				bool presente = false;
+				if(incroci_s != NULL)
+				for(int j = 0;j < incroci_s->size(); j++){
+					if(inc == incroci_s->at(j)){
+						presente = true;
 						break;
 					}						
 				}				
-				if(val<dist && !presente){
-					incrocio_vicino=inc;
-					dist=val;
+				if(val < dist && !presente){
+					incrocio_vicino = inc;
+					dist = val;
 				} 				
 			}
 			
@@ -264,17 +264,17 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std:
 				exit(-1);
 			}
 			
- 			std::cout<<"Close chosen intersection: "<<incrocio_vicino->getX()<<" "<<incrocio_vicino->getY();
+ 			std::cout<<"Close chosen intersection: "<<incrocio_vicino->getX()<<" "<<incrocio_vicino->getY()<<std::endl;
 			
 			if(incroci_s==NULL){
-				std::vector<Punto*> incroci_scelti;
+				std::vector<Point*> incroci_scelti;
 				incroci_s=&incroci_scelti;				
 			}
 			
 			incroci_s->push_back(incrocio_vicino);
 			percorso= getPercorsoVoronoi(partenza,*incrocio_vicino,incroci_s);
 			
-			std::vector<Punto*> restante= getPercorsoVoronoi(*incrocio_vicino,arrivo,incroci_s); 
+			std::vector<Point*> restante= getPercorsoVoronoi(*incrocio_vicino,arrivo,incroci_s); 
 			
 			percorso.insert(percorso.end(),restante.begin(),restante.end());
 			return percorso;
@@ -286,18 +286,18 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi(Punto partenza,Punto arrivo,std:
 	return percorso;
 }
 
-std::vector<Punto*> Voronoi::getPercorsoVoronoi2(Punto partenza,Punto arrivo){
-	std::vector<Punto*> percorso;
+std::vector<Point*> Voronoi::getPercorsoVoronoi2(Point partenza,Point arrivo){
+	std::vector<Point*> percorso;
 	
-	Punto *incrocio_partenza;
-	Punto *incrocio_arrivo;
+	Point *incrocio_partenza;
+	Point *incrocio_arrivo;
 	
 	double dist1=10000;
 	double dist2=10000;
 	for(int i=0;i<incroci.size();i++){
-		Punto *inc= incroci.at(i);
-		double val= Ostacolo::Distanza(*inc,partenza);
-		double val2= Ostacolo::Distanza(*inc,arrivo);		
+		Point *inc= incroci.at(i);
+		double val= Ostacolo::Distance(*inc,partenza);
+		double val2= Ostacolo::Distance(*inc,arrivo);		
 		if(val<dist1){
 			dist1=val;
 			incrocio_partenza=inc;
@@ -309,26 +309,26 @@ std::vector<Punto*> Voronoi::getPercorsoVoronoi2(Punto partenza,Punto arrivo){
 	}
 	
 	dist1=10000;
-	Punto *incrocio_obiettivo;
-	for(int i=0;i<incroci.size();i++){
-		Punto *inc= incroci.at(i);
-		double val= Ostacolo::Distanza(*inc,*incrocio_partenza);
-		double val2= Ostacolo::Distanza(*inc,*incrocio_arrivo);
-		if(fabs(val-val2)<dist1){
-			incrocio_obiettivo=inc;
-			dist1=fabs(val-val2);
+	Point *incrocio_obiettivo;
+	for(int i = 0;i < incroci.size(); i++){
+		Point *inc = incroci.at(i);
+		double val = Ostacolo::Distance(*inc,*incrocio_partenza);
+		double val2 = Ostacolo::Distance(*inc,*incrocio_arrivo);
+		if(fabs(val-val2) < dist1){
+			incrocio_obiettivo = inc;
+			dist1 = fabs(val-val2);
 		}	
 	}
 	
-	percorso= getPercorsoVoronoi(partenza,*incrocio_arrivo,NULL);
+	percorso = getPercorsoVoronoi(partenza,*incrocio_arrivo,NULL);
 	
-	std::vector<Punto*> temp;/*= getPercorsoVoronoi(*incrocio_partenza,*incrocio_obiettivo,NULL);
+	std::vector<Point*> temp;/*= getPercorsoVoronoi(*incrocio_partenza,*incrocio_obiettivo,NULL);
 	percorso.insert(percorso.end(),temp.begin(),temp.end());
 	
 	temp= getPercorsoVoronoi(*incrocio_obiettivo,*incrocio_arrivo,NULL);
 	percorso.insert(percorso.end(),temp.begin(),temp.end());*/
 	
-	temp= getPercorsoVoronoi(*incrocio_arrivo,arrivo,NULL);
+	temp = getPercorsoVoronoi(*incrocio_arrivo,arrivo,NULL);
 	percorso.insert(percorso.end(),temp.begin(),temp.end());
 	
 	return percorso;
