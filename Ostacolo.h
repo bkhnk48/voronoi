@@ -6,21 +6,21 @@
 
 class Ostacolo{
 	private:
-		std::vector<Punto*> vertici;
-		std::vector<Punto*> surface;
+		std::vector<Punto*> vertices;
+		std::vector<Punto*> edges;
 	public:
 		Ostacolo(std::vector<Punto*> *vert);
-		std::vector<Punto*> *getSurface();
+		std::vector<Punto*> *getEdges();
 		static double Distanza(Punto p1,Punto p2);		
 };
 
 Ostacolo::Ostacolo(std::vector<Punto*> *vert){
-	vertici=*vert;
+	vertices=*vert;
 	
-	if(vertici.size()>1){
-		for(int i=0;i<vertici.size();i++){
-			Punto *p1= vertici.at(i);
-            Punto *p2= vertici.at((i+1)%vertici.size());
+	if(vertices.size()>1){
+		for(int i=0;i < vertices.size();i++){
+			Punto *p1= vertices.at(i);
+            Punto *p2= vertices.at((i+1)%vertices.size());
             
             double p1x= p1->getX();
             double p2x=p2->getX();
@@ -33,7 +33,7 @@ Ostacolo::Ostacolo(std::vector<Punto*> *vert){
 			
 			do{
 				
-				surface.push_back(tmp);
+				edges.push_back(tmp);
 				
 				if(p1x==p2x && p1y!=p2y){ //retta verticale
                     if(p1y<p2y)
@@ -59,13 +59,13 @@ Ostacolo::Ostacolo(std::vector<Punto*> *vert){
 			}while(!(tmp->getX()==p2->getX() && tmp->getY()==p2->getY()));
 			
 		}
-	}else surface.push_back(vertici.at(0));
+	}else edges.push_back(vertices.at(0));
 	
 }
 
 
-std::vector<Punto*> *Ostacolo::getSurface(){
-	return &surface;
+std::vector<Punto*> *Ostacolo::getEdges(){
+	return &edges;
 }
 
 double Ostacolo::Distanza(Punto p1,Punto p2){
