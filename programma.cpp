@@ -133,7 +133,7 @@ int main(){
 	#pragma endregion
 	
 	Voronoi *mappa=new Voronoi(200,200,ostacoli);
-	std::vector<Point*> *voronoi= mappa->getPuntiVoronoi();
+	std::vector<Point*> *voronoi= mappa->getPointVoronoi();
 	ostacoli = *mappa->getPolygon();
 	std::vector<Point*> *incroci= mappa->getIncroci();
 	
