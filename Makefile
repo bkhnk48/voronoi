@@ -2,7 +2,7 @@ all: serial
 
 serial:
 	g++ -g -c Point.h
-	g++ -g -c Ostacolo.h
+	g++ -g -c Polygon.h
 	g++ -g -c Voronoi.h
 	g++ programma.cpp -g -o out
 clean: 
