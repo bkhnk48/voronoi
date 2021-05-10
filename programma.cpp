@@ -113,6 +113,7 @@ int main(){
 	Polygon *o32 = new Polygon(&fboundary32);
 	#pragma endregion
 
+	#pragma region collect polygons
 	std::vector<Polygon*> ostacoli;
 	ostacoli.push_back(o);
 	ostacoli.push_back(o1);
@@ -129,6 +130,7 @@ int main(){
 	ostacoli.push_back(o31);
 	ostacoli.push_back(o32);
 	ostacoli.push_back(o33);
+	#pragma endregion
 	
 	Voronoi *mappa=new Voronoi(200,200,ostacoli);
 	std::vector<Point*> *voronoi= mappa->getPuntiVoronoi();
