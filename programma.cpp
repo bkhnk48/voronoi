@@ -141,9 +141,9 @@ int main(){
 	
 	std::ofstream fostacoli("ostacoli.txt");
 	for(int i=0;i<ostacoli.size();i++){
-		for(int j=0;j<ostacoli.at(i)->getSurface()->size();j++){
-		fostacoli<< ostacoli.at(i)->getSurface()->at(j)->getX()
-				<< " " << ostacoli.at(i)->getSurface()->at(j)->getY() << std::endl;
+		for(int j=0;j<ostacoli.at(i)->getEdges()->size();j++){
+		fostacoli<< ostacoli.at(i)->getEdges()->at(j)->getX()
+				<< " " << ostacoli.at(i)->getEdges()->at(j)->getY() << std::endl;
 		}
 	}
 	fostacoli.close();
