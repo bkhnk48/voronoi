@@ -98,8 +98,8 @@ void Voronoi::CreaVoronoi(){
 			std::vector<double> distance;
 			for(int i=0;i<ostacoli.size();i++){
 				double minDist=10000;
-				for(int j=0;j<ostacoli.at(i)->getSurface()->size();j++){
-					double tmp_dist= Ostacolo::Distanza(*tmp_punto,*ostacoli.at(i)->getSurface()->at(j));
+				for(int j=0;j<ostacoli.at(i)->getEdges()->size();j++){
+					double tmp_dist= Ostacolo::Distanza(*tmp_punto,*ostacoli.at(i)->getEdges()->at(j));
 					//double tmp_dist= fabs(tmp_punto->getX()-ostacoli.at(i)->getIngombro()->at(j)->getX())+fabs(tmp_punto->getY()-ostacoli.at(i)->getIngombro()->at(j)->getY());
 					if(tmp_dist<minDist) 
 						minDist=tmp_dist;
