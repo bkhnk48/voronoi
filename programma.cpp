@@ -171,4 +171,6 @@ int main(){
 		fincroci<< incroci->at(i)->getX() << " " << incroci->at(i)->getY() << std::endl;		
 	}
 	fincroci.close();
+
+	std::cout<<"\n";
 }
