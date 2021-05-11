@@ -6,9 +6,9 @@
 
 class Polygon{
 	private:
-		std::vector<Point*> vertices;
 		std::vector<Point*> edges;
 	public:
+		std::vector<Point*> vertices;
 		Polygon(std::vector<Point*> *vert);
 		std::vector<Point*> *getEdges();
 		static double Distance(Point p1,Point p2);		
