@@ -135,16 +135,16 @@ std::vector<Point> Voronoi::getPercorso(Point partenza,Point arrivo){
 	
 	std::vector<Point> percorso;
 	percorso.push_back(partenza); //solo temporaneo
-	double dist=10000;
-	double dist2=10000;
-	Point *minimo_arrivo=NULL;
-	Point *minimo=NULL;
+	double dist = 10000;
+	double dist2 = 10000;
+	Point *minimo_arrivo = NULL;
+	Point *minimo = NULL;
 	
-	for(int i=0;i<point_voronoi.size();i++){
-		Point *p= point_voronoi.at(i);
-		double val= sqrt((partenza.getX()-p->getX())*(partenza.getX()-p->getX()) + (partenza.getY()-p->getY())*(partenza.getY()-p->getY()));
-        double val2= sqrt((arrivo.getX()-p->getX())*(arrivo.getX()-p->getX()) + (arrivo.getY()-p->getY())*(arrivo.getY()-p->getY()));
-		if(val<dist){
+	for(int i=0; i < point_voronoi.size(); i++){
+		Point *p = point_voronoi.at(i);
+		double val = sqrt((partenza.getX()-p->getX())*(partenza.getX()-p->getX()) + (partenza.getY()-p->getY())*(partenza.getY()-p->getY()));
+        double val2 = sqrt((arrivo.getX()-p->getX())*(arrivo.getX()-p->getX()) + (arrivo.getY()-p->getY())*(arrivo.getY()-p->getY()));
+		if(val < dist){
 			minimo=p;
 			dist=val;
 		}
@@ -264,7 +264,7 @@ std::vector<Point*> Voronoi::getPercorsoVoronoi(Point partenza,Point arrivo,std:
 				exit(-1);
 			}
 			
- 			std::cout<<"Close chosen intersection: "<<incrocio_vicino->getX()<<" "<<incrocio_vicino->getY()<<std::endl;
+ 			std::cout<<"Close chosen intersection: "<<incrocio_vicino->getX()<<" "<<incrocio_vicino->getY();
 			
 			if(incroci_s==NULL){
 				std::vector<Point*> incroci_scelti;
