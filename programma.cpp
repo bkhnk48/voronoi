@@ -22,9 +22,13 @@ int main(){
 	#pragma region second stack
 	std::vector<Point*> figure;
 	figure.push_back(new Point(10 + deltaX, 38 + deltaY));//R
-	figure.push_back(new Point(10 + deltaX, 50 + deltaY));//S
+	//figure.push_back(new Point(10 + deltaX, 50 + deltaY));//S
+	figure.push_back(new Point(10 + deltaX, 56 + deltaY));
+	figure.push_back(new Point(12 + deltaX, 56 + deltaY));//
 	figure.push_back(new Point(12 + deltaX, 50 + deltaY));//T
-	figure.push_back(new Point(12 + deltaX, 56 + deltaY));//U
+	figure.push_back(new Point(14 + deltaX, 50 + deltaY));
+	figure.push_back(new Point(14 + deltaX, 56 + deltaY));
+	//figure.push_back(new Point(12 + deltaX, 56 + deltaY));//U
 	figure.push_back(new Point(80 + deltaX, 56 + deltaY));//V
 	figure.push_back(new Point(80 + deltaX, 38 + deltaY));//W
 	Polygon *o1 = new Polygon(&figure);
@@ -137,7 +141,7 @@ int main(){
 	ostacoli = *mappa->getPolygon();
 	std::vector<Point*> *incroci= mappa->getIncroci();
 	
-	Point *partenza= new Point(11 + deltaX, 53 + deltaY);
+	Point *partenza= new Point(13 + deltaX, 53 + deltaY);
 	Point *arrivo= new Point(39 + deltaX, 0 + deltaY);
 	std::vector<Point> percorso=mappa->getPercorso(*partenza,*arrivo);
 	
