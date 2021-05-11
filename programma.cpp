@@ -25,13 +25,23 @@ int main(){
 	//figure.push_back(new Point(10 + deltaX, 50 + deltaY));//S
 	figure.push_back(new Point(10 + deltaX, 56 + deltaY));
 	figure.push_back(new Point(12 + deltaX, 56 + deltaY));//
-	figure.push_back(new Point(12 + deltaX, 50 + deltaY));//T
-	figure.push_back(new Point(14 + deltaX, 50 + deltaY));
-	figure.push_back(new Point(14 + deltaX, 56 + deltaY));
+	figure.push_back(new Point(12 + deltaX, 38 + deltaY));
+	Polygon *o1k1 = new Polygon(&figure);
+
+	std::vector<Point*> figure1;
+	figure1.push_back(new Point(12 + deltaX, 50 + deltaY));//T
+	figure1.push_back(new Point(14 + deltaX, 50 + deltaY));
+	figure1.push_back(new Point(14 + deltaX, 38 + deltaY));
+	figure1.push_back(new Point(12 + deltaX, 38 + deltaY));
+	Polygon *o1k2 = new Polygon(&figure1);
+
+	std::vector<Point*> figure2;
+	figure2.push_back(new Point(14 + deltaX, 38 + deltaY));
+	figure2.push_back(new Point(14 + deltaX, 56 + deltaY));
 	//figure.push_back(new Point(12 + deltaX, 56 + deltaY));//U
-	figure.push_back(new Point(80 + deltaX, 56 + deltaY));//V
-	figure.push_back(new Point(80 + deltaX, 38 + deltaY));//W
-	Polygon *o1 = new Polygon(&figure);
+	figure2.push_back(new Point(80 + deltaX, 56 + deltaY));//V
+	figure2.push_back(new Point(80 + deltaX, 38 + deltaY));//W
+	Polygon *o1k3 = new Polygon(&figure2);
 	#pragma endregion
 
 	#pragma region gate 1
@@ -120,7 +130,9 @@ int main(){
 	#pragma region collect polygons
 	std::vector<Polygon*> ostacoli;
 	ostacoli.push_back(o);
-	ostacoli.push_back(o1);
+	ostacoli.push_back(o1k1);
+	ostacoli.push_back(o1k2);
+	ostacoli.push_back(o1k3);
 
 	ostacoli.push_back(o11);
 	ostacoli.push_back(o12);
@@ -136,7 +148,7 @@ int main(){
 	ostacoli.push_back(o33);
 	#pragma endregion
 	
-	Voronoi *mappa=new Voronoi(200, 200, ostacoli);
+	Voronoi *mappa=new Voronoi(120, 120, ostacoli);
 	std::vector<Point*> *voronoi= mappa->getPointVoronoi();
 	ostacoli = *mappa->getPolygon();
 	std::vector<Point*> *incroci= mappa->getIncroci();
